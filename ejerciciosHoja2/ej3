@@ -1,0 +1,9 @@
+#! /bin/bash
+IFS=','
+for line in $(cat $1 | head | sed //g | tr -s ',' '\n' | sort -n | uniq -c | tr -s ' '| tr '\n' ',')
+do
+        frecuency=$(echo $line | cut -f2 -d' ')
+        number=$(echo $line | cut -f3 -d' ')
+        echo $number:$frecuency
+
+done | sort -n -t':' -k2 -r﻿

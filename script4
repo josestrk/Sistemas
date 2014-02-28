@@ -1,0 +1,16 @@
+#!/bin/bash
+echo "Moviendo mensajes"
+
+for rm in $(ls ~/buzones/)
+do
+	for ds in $(ls ~/buzones/$rm/out/)
+	do
+		if (cat ~/buzones/$ds/in/$rm)>0 ; then
+			$(cat ~/buzones/$rm/out/$ds >> ~/buzones/$ds/in/$rm)
+			echo "añadidos mensajes a ~/buzones/$ds/in/$rm"
+		else
+			$(cat ~/buzones/$rm/out/$ds > ~/buzones/$ds/in/$rm)
+			echo "guardado ~/buzones/$ds/in/$rm"
+		fi
+	done
+done

@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ $# -eq 1 ]; then
+(ls ~/buzones/$1/ > /dev/null 2> /dev/null )
+	if [ $? -gt 0 ] ; then
+		echo "El usuario no tiene bunzón"
+	else
+		if  [ $(ls ~/buzones/$1/in/ | wc -l) -eq 0 ] ; then
+			echo "El usuario no tiene mensajes pendientes"
+		else
+			for mm in $(ls ~/buzones/$1/in/)
+			do
+				cat ~/buzones/$1/in/$mm
+				rm ~/buzones/$1/in/$mm
+			done
+		fi
+	fi
+else
+	echo "error introdice nombre de usuario"
+fi

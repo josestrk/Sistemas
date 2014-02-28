@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "introduce cadena"
+read cadena
+com=$( echo $cadena | grep -o [^0-9A-Za-z] | wc -l )
+if [ $com -eq 0 ] ; then
+	com=$( cat ~/usuarios 2> /dev/null | grep -E "^$cadena\$" | wc -l)
+	if [ $com -eq 0 ] ; then
+		echo $cadena >> ~/usuarios
+		echo "Has introducido $cadena"
+	else
+		echo "La cadena ya existe en ~/usuarios"
+	fi
+else
+	echo "ʟa cadena contiene caracteres invalidos"
+fi

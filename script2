@@ -1,0 +1,14 @@
+#!/bin/bash
+raiz=buzones
+
+echo "creaccion $raiz en ~/"
+
+if $(rm -r ~/buzones 2> /dev/null) > 0 ; then
+	echo "Borrado $raiz"
+fi
+mkdir ~/$raiz 2> /dev/null
+user=
+for user in $(cat /etc/passwd | cut -f1 -d:)
+do
+	mkdir ~/$raiz/$user ~/$raiz/$user/'in' ~/$raiz/$user/'out' 2> /dev/null
+done

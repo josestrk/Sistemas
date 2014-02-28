@@ -1,0 +1,25 @@
+#!/bin/bash
+echo "El Remitente"
+read rem
+$(cd ~/buzones/$rem 2> /dev/null)
+if [ $? -gt 0 ] ; then
+	echo "no existe $rem como remitente"
+else
+	echo "Destinatario"
+	read des
+	$(cd ~/buzones/$des 2> /dev/null) 
+	if [ $? -gt 0 ] ; then
+	echo "no existe $des como destinatario"
+	else
+		echo "Mensaje"
+		read mm
+		$(cat ~/buzones/$rem/out/$des 2> /dev/null)
+		if [ $? -gt 0 ]; then
+			echo "---------------/n $mm" >> ~/buzones/$rem/out/$des
+			echo "Mensaje añadido en $des"
+		else
+			echo $mm > ~/buzones/$rem/out/$des
+			echo "mensaje guardado"
+		fi
+	fi
+fi
